@@ -1,0 +1,26 @@
+/* Add this to your existing CSS or modify as needed */
+.single-row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.single-row label {
+    flex: 0 0 15%; /* Adjust the width as needed */
+    margin-bottom: 10px; /* Add space between labels */
+}
+
+.single-row input {
+    width: 100%;
+}
+/* Add this to your existing CSS or modify as needed */
+.single-row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.single-row div {
+    flex: 0 0 48%; /* Adjust the width as needed */
+    margin-bottom: 10px; /* Add space between sections */
+}
