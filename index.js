@@ -3,6 +3,7 @@ const session = require('express-session');
 const { google } = require("googleapis");
 const bodyParser = require("body-parser");
 const path = require('path');
+const cors = require('cors');
 const bycrypt = require('bcrypt');
 const User = require('./db/conn');
 const RMusers = require('./modal/rogerMobSec');
@@ -23,6 +24,15 @@ app.use(
     saveUninitialized: true,
   })
 );
+const corsOptions = {
+  origin: '*',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  allowedHeaders: 'Content-Type,Authorization',
+};
+
+app.use(cors(corsOptions));
+
 
 const isAuthenticated = (req, res, next) => {
   if (req.session && req.session.admin) {
