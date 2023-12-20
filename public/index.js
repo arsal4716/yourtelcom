@@ -251,7 +251,7 @@ document
       document.querySelector('.overlay').style.display = 'none';
     }, 3000);
     // Send form data to the server
-    const response = await fetch("/submit", {
+    const response = await fetch("https://telcom-phi.vercel.app/submit", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
