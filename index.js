@@ -12,7 +12,9 @@ const userLogin = require('./modal/userLogin')
 // import routes
 require('dotenv').config(); // Load environment variables from .env file
 const port = process.env.PORT || 3000;
-app.use(express.static("public"));
+if(process.env.NODE_ENV === "production"){
+  app.use(express.static("public"));
+}
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");

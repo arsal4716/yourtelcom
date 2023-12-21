@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-
-mongoose.connect('mongodb+srv://arsalanali1240:Arsalan4716@cluster0.rysrcms.mongodb.net/form',{
+require('dotenv').config(); // Load environment variables from .env
+mongoose.connect(process.env.DATABASE,{
     useNewUrlParser: true,
     useUnifiedTopology: true,
   
@@ -11,7 +11,7 @@ const userSchema =  new mongoose.Schema({
     },
     choseOrder:{
         type:String
-    },
+    },    
     orderTypeSelect:{
         type:String
     },
