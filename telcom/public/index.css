@@ -1,0 +1,163 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    margin-left: 30px;
+}
+  .heading {
+    display: flex;
+    justify-content: space-between;
+    background-color:#2980b9;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: white;
+    align-items: center;
+  }
+.sec1{
+    display: flex;
+    justify-content: space-between;
+}
+.ExistingCustomer fieldset {
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  .ExistingCustomer .form-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px; /* Add space between the groups */
+  }
+  
+  .ExistingCustomer .form-group label {
+    width: 45%; /* Adjust the width of the labels as needed */
+  }
+  
+  .ExistingCustomer .form-group input {
+    width: 50%; /* Adjust the width of the input fields as needed */
+  }
+  .creditInfo {
+    display: flex;
+  }
+  
+  .creditInfo label {
+    margin-bottom: 5px; /* Add space between labels */
+  }
+  
+  .creditInfo select,
+  .creditInfo input[type="text"],
+  .creditInfo input[type="date"] {
+    width: 100%; /* Make the fields take up full width */
+    margin-bottom: 10px; /* Add space between fields */
+  }
+  
+  .creditInfo #passportSection,
+  .creditInfo #drivingSection {
+    margin-top: 10px; /* Add space between passport and driving sections */
+  }
+  .creditInfo #passportSection label,
+  .creditInfo #drivingSection label {
+    display: block; /* Ensure labels are displayed as blocks */
+    margin-bottom: 5px; /* Add space between labels */
+  }
+  .customerInfo {
+    display: flex;
+    justify-content: space-between;
+  }
+  .column {
+    flex: 0 0 30%; /* Adjust the width of the columns */
+  }
+  .column label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .column input {
+    width: 100%; /* Make the input field fill the column */
+    padding: 2px;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+  }
+  .packageInfo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Adjust the gap as needed */
+    justify-content: space-between;
+  }
+  .HomePhone,
+  .internet,
+  .tv {
+    width: 45%;
+  }
+
+  #tvSection {
+    width: 45%;
+  }
+
+
+  .offerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-top: 30px;
+  }
+  
+  .dateAndNoteContainer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 30px;
+  }
+  
+  .dateOption,
+  .noteOption {
+    flex: 1;
+    max-width: calc(50% - 20px); 
+    /* Adjust the width and gap as needed */
+    margin-bottom: 20px; /* Adjust the margin as needed */
+  }
+  
+.submit-button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 12px 20px; /* Adjusted padding for a more compact button */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px; /* Adjusted font size for a more compact button */
+    width: 20%;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.submit-button:hover {
+    background-color: #2980b9;
+}
+/* Add loader styles */
+/* Add loader styles */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it's on top of other elements */
+  }
+  
+  #loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  

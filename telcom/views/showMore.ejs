@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>show more</title>
+    <link rel="stylesheet" href="showmore.css"/>
+</head>
+<body>
+    <form action="/showMore/<%= user._id %>" method="post" class="edit-form" id="editForm">
+        <!-- Your existing form content -->
+
+        <div class="form-section">
+            <label>Channel Name:</label>
+            <span><%= user.companyName %></span>
+
+            <label>Comission:</label>
+            <span>$<%= user.comission %></span>
+
+            <label>Order Type:</label>
+            <span><%= user.orderTypeSelect %></span>
+        </div>
+
+        <div class="form-section">
+            <label>Customer Name:</label>
+            <span><%= user.name %></span>
+
+            <label>Customer Address:</label>
+            <span><%= user.address %></span>
+
+            <label>Customer Email:</label>
+            <span><%= user.email %></span>
+        </div>
+
+        <div class="form-section">
+            <label>Date of Birth:</label>
+            <span><%= user.birthDate %></span>
+
+            <label>Chose Id:</label>
+            <span><%= user.choseId %></span>
+
+            <label>License Number:</label>
+            <span><%= user.licenseNumber %></span>
+        </div>
+
+        <div class="form-section">
+            <label>Expiry Date:</label>
+            <span><%= user.expiryDate %></span>
+
+            <label>Porting Number:</label>
+            <span><%= user.portingNumber %></span>
+
+            <label>Provider Name:</label>
+            <span><%= user.ProviderName %></span>
+        </div>
+
+        <div class="form-section">
+            <label>Account Number:</label>
+            <span><%= user.AccountNumber %></span>
+
+            <label>Port Phone Number:</label>
+            <span><%= user.portPhoneNumber %></span>
+
+            <label>Main Number:</label>
+            <span><%= user.mainNumber %></span>
+        </div>
+
+        <div class="form-section">
+            <label>Main Cell:</label>
+            <span><%= user.mainCell %></span>
+
+            <label>Selected Package:</label>
+            <td><%= user.line %> + <%= user.speed %> + <%= user.TvPackageinfo %></td>
+            <label>Preferred Installation Date:</label>
+            <span><%= user.preferedinstallationdate %></span>
+        </div>
+
+        <div class="form-section">
+            <label>Note Order:</label>
+            <span><%= user.noteOrder %></span>
+            <label for="">Order No</label>
+            <td><%=user.orderNo %></td>
+        </div>
+        <button type="button" id="copyButton">Copy</button>
+    </form>
+<!-- Your existing HTML content -->
+
+<script>
+    document.getElementById('copyButton').addEventListener('click', function () {
+        // Get the form
+        var form = document.getElementById('editForm');
+
+        // Create a new textarea element
+        var tempTextarea = document.createElement('textarea');
+        tempTextarea.setAttribute('readonly', '');
+        tempTextarea.style.position = 'absolute';
+        tempTextarea.style.left = '';
+
+        // Create a string to hold the copied content
+        var copiedContent = '';
+
+        // Iterate through form sections and copy their content
+        var formSections = form.querySelectorAll('.form-section');
+        formSections.forEach(function (section) {
+            // Iterate through section elements and copy their content
+            section.querySelectorAll('label, span, td').forEach(function (element) {
+                copiedContent += element.textContent + ': ' + element.innerText + '\n';
+            });
+        });
+
+        // Set the textarea value to the copied content
+        tempTextarea.value = copiedContent;
+
+        // Append the textarea to the body
+        document.body.appendChild(tempTextarea);
+
+        // Select and copy the content using the Clipboard API
+        tempTextarea.select();
+        document.execCommand('copy');
+
+        // Remove the temporary textarea
+        document.body.removeChild(tempTextarea);
+
+        alert('Form content copied to clipboard!');
+    });
+</script>
+      
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin</title>
+    <link rel="stylesheet" href="adminForm.css" />    
+      
+  </head>
+  <body>
+    <div class="main">
+    <p><a>Admin Panel</a></p>
+    <p><a href="/logout">Logout</a></p>
+  </div>
+    <form action="adminsubmit" method="post">
+      <form action=""></form>
+      <div class="table-container">
+        <table class="table">
+            <th>C-Name</th>
+            <th>Order</th>
+            <th>O-Type</th>
+            <th>Customer</th>
+            <th>Name</th>
+            <th>Package Details</th>
+            <th>Installation Date</th>
+            <th>Status</th>
+            <th>To See Details</th>
+
+            <!-- Add more column headers for other fields like email, etc. -->
+          </tr>
+          <% users.forEach(user => { %>
+          <tr>
+            <td><%=user.companyName %></td>
+            <td><%=user.order %></td>
+            <td><%= user.orderTypeSelect %></td>
+            <td><%= user.customerTypeSelect.toLocaleString() %></td>
+            <td><%= user.name %></td>
+            <td><%= user.line %> + <%= user.speed %> + <%= user.TvPackageinfo %></td>
+            <td><%=user.installationDateTime %></td>
+            <td class="custom-dropdown status-<%= user.status.toLowerCase() %>">
+              <form action="/updateStatus/<%= user._id %>" method="POST">
+                <select name="status" id="status_<%= user._id %> "
+                  onchange="handleStatusChange('<%= user._id %>', this.value)">
+                  <option value="Submit" <%= user.status === 'Submit' ? 'selected' : '' %>>Submit</option>
+                  <option value="Booked" <%= user.status === 'Booked' ? 'selected' : '' %>>Booked</option>
+                  <option value="Install" <%= user.status === 'Install' ? 'selected' : '' %>>Install</option>
+                  <option value="Cancelled" <%= user.status === 'Cancelled' ? 'selected' : '' %>>Cancelled</option>
+                </select>
+                <input type="date" name="installationDateTime" id="installationDateTime_<%= user._id %>" style="display: none;" />
+                <button type="submit">Update</button>
+                <!-- cancel reason -->
+                <div id="cancelReasonBox_<%= user._id %>" style="display: none;">
+                  <label for="cancelReason">Cancellation Reason:</label>
+                  <input type="text" name="cancelReason" id="cancelReason"/>
+                   </div>
+                           <!-- cancel reason display -->
+        <span id="cancelReasonDisplay_<%= user._id %>">
+          <%= user.status === 'Cancelled' ? user.cancelReason : '' %>
+      </span>
+
+              </form>
+            </td>
+            <td>
+              <button type="button" onclick="showmore('<%= user._id %>')">Show More</button>
+              <button type="button" onclick="popup('<%= user._id %>')">Edit</button>
+            </td>
+            <td class="hidden-header"><%= user.comission %></td>
+            <td class="hidden-header"><%= user.orderNo %></td>
+            <td class="hidden-header"><%= user.email %></td>
+            <td class="hidden-header"><%= user.address %></td>
+            <td class="hidden-header"><%= user.birthDate %></td>
+            <td class="hidden-header"><%= user.choseId %></td>
+            <td class="hidden-header">
+              <% if (user.choseId === 'Passport') { %> <%= user.passportNumber
+              %> <% } else if (user.choseId === 'Driving License') { %> <%=
+              user.drivingLicenseNumber %> <% } %>
+            </td>
+            <td class="hidden-header"><%= user.expiryDate %></td>
+            <!-- port phone section -->
+            <td class="hidden-header"><%=user.portingNumber %></td>
+            <td class="hidden-header"><%=user.ProviderName %></td>
+            <td class="hidden-header"><%=user.AccountNumber %></td>
+            <td class="hidden-header"><%=user.portPhoneNumber %></td>
+            <td class="hidden-header"><%=user.mainNumber %></td>
+            <td class="hidden-header"><%=user.mainCell %></td>
+            <td class="hidden-header"><%= user.boxesQuality%></td>
+            <td class="hidden-header"><%=user.creditOfferInfo %></td>
+            <td class="hidden-header"><%=user.chenalsDetails %></td>
+            <td class="hidden-header"><%=user.fullPrice %></td>
+            <td class="hidden-header"><%= user.preferedinstallationdate %></td>
+            <td class="hidden-header"><%=user.noteOrder %></td>
+            <td class="hidden-header"><%=  %></td>
+            <td class="hidden-header"><%=new Date(user.submissionDate).toLocaleString() %></td>
+            <td class="hidden-header">
+            </td>
+            <td class="hidden-header">
+              <!-- Delete button -->
+              <form action="/delete/<%= user._id %>" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?')">
+                <button type="submit">Delete</button>
+              </form>
+            </td>
+                            
+          </tr>
+          <% }); %>
+        </table>
+      </div>
+    </form>
+    <div></div>
+  </body>
+  <script>
+
+async function showmore(userId) {
+    // Fetch the HTML content of the form
+    const response = await fetch(`/showMore/${userId}`);
+    const formHTML = await response.text();
+
+    // Create a new div to hold the form
+    const formContainer = document.createElement('div');
+    formContainer.innerHTML = formHTML;
+    formContainer.id = 'form-container'; // Set the ID for easier access
+
+    // Append the form to the document body
+    document.body.appendChild(formContainer);
+
+    // Add a class to apply a fade-in animation
+    formContainer.classList.add('fade-in');
+
+    // Add a click event listener to the document body
+    document.body.addEventListener('click', handleOutsideClick);
+
+    // Function to close the form when clicking outside
+    function handleOutsideClick(event) {
+        // Check if the clicked element is not inside the form container
+        if (!formContainer.contains(event.target)) {
+            // Remove the class to trigger fade-out animation
+            formContainer.classList.remove('fade-in');
+            // Add a class to apply a fade-out animation
+            formContainer.classList.add('fade-out');
+
+            // Remove the form container from the body after the animation ends
+            formContainer.addEventListener('animationend', function () {
+                document.body.removeChild(formContainer);
+            });
+
+            // Remove the click event listener to avoid unnecessary checks
+            document.body.removeEventListener('click', handleOutsideClick);
+        }
+    }
+
+    // Show the popup if 'editPopup' exists
+    const editForm = document.getElementById('editForm');
+    if (editForm) {
+      editForm.style.display = 'flex';
+    } else {
+        console.error("Element with ID 'editForm' not found.");
+    }
+}
+
+// editForm.js
+
+async function popup(userId) {
+    // Fetch the HTML content of the edit form
+    const response = await fetch(`/editForm/${userId}`);
+    const editFormHTML = await response.text();
+
+    // Create a new div to hold the edit form
+    const editContainer = document.createElement('div');
+    editContainer.innerHTML = editFormHTML;
+    editContainer.id = 'edit-container'; // Set the ID for easier access
+
+    // Append the edit form to the document body
+    document.body.appendChild(editContainer);
+
+    // Show the popup
+    document.getElementById('editPopup').style.display = 'flex';
+}
+
+function closePopup() {
+    // Hide the popup and remove the edit form from the body
+    document.getElementById('editPopup').style.display = 'none';
+    const editContainer = document.getElementById('edit-container');
+    if (editContainer) {
+        document.body.removeChild(editContainer);
+    }
+}
+function changeBackgroundColor(userId, status) {
+        const dropdown = document.getElementById(`status_${userId}`);
+        dropdown.className = ''; // Remove existing classes
+        dropdown.classList.add(`status-${status.toLowerCase()}`);
+    }
+    function handleStatusChange(userId, selectedStatus) {
+    const cancelReasonBox = document.getElementById(`cancelReasonBox_${userId}`);
+    const bookedDate = document.getElementById(`installationDateTime_${userId}`);
+    const cancelReasonDisplay = document.getElementById(`cancelReasonDisplay_${userId}`);
+    
+    if (selectedStatus === 'Cancelled') {
+        // Show the cancellation reason box
+        cancelReasonBox.style.display = 'block';
+        bookedDate.style.display = 'none';
+    } else if (selectedStatus === 'Booked') {
+        // Hide the cancellation reason box
+        bookedDate.style.display = 'block';
+        cancelReasonBox.style.display = 'none';
+    } else {
+        // Hide the cancellation reason box and update the cancelReasonDisplay
+        bookedDate.style.display = 'none';
+        cancelReasonBox.style.display = 'none';
+        cancelReasonDisplay.textContent = ''; // Clear the content
+    }
+}
+   function toggleHiddenColumns() {
+        const hiddenColumns = document.querySelectorAll('.hidden');
+        hiddenColumns.forEach((column) => {
+            column.style.display = column.style.display === 'none' ? '' : 'none';
+        });
+    }
+</script>
+</html>

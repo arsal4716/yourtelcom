@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roger Mobility Form</title>
+    <link rel="stylesheet" href="rogersMobility.css">
+</head>
+<body>
+    
+    <div class="rogersMobilityForm">
+        <div class="container">
+            <h1>Wireless order Form</h1>
+            <form action="submit" method="post">
+                <section class="single-row">
+                    <label for="reId">Representative ID:
+                        <input type="text" id="reId" name="reId">
+                    </label>
+                    <label for="name">Customer Name: 
+                        <input type="text" id="name" name="name">
+                    </label>
+                    <label for="DOB">Date of Birth
+                        <input type="date" id="dateofBirth" name="date">
+                    </label>
+                    <label for="phone">Customer Phone No:
+                        <input type="tel" id="phone" name="phone">
+                    </label>
+                    <label for="email">Customer Email:
+                        <input type="email" name="email" id="email">
+                    </label>
+                    <label for="address">Customer Address:
+                        <input type="text" name="address" id="address">
+                    </label>
+                </section>
+    <!-- 2nd -->
+<section>
+    <label for="licesnseAdress">Is your driver's license address the same as the customer address?</label>
+        <input type="radio" name="licesnseAdress" id="licesnseYes" onchange="licenseAddress()">Yes
+        <input type="radio" name="licesnseAdress" id="licesnseNo" onchange="licenseAddress()">No
+    <!-- Address in 'No' case -->
+    <label for="driverLicenseAddress" id="driverLicenseAddress" style="display: none;">Customer Driver's License Address:
+        <input type="text" name="driverLicenseAddress" id="driverLicenseAddress">
+    </label><br>
+     <!-- shipping address -->
+        <label for="shippingAddress">Is your shipping address the same as the customer address?</label>
+        <input type="radio" name="shippingAddress" id="shippingAddressYes" onchange="shipAdress()">Yes
+        <input type="radio" name="shippingAddress" id="shippingAddressNo" onchange="shipAdress()">No 
+        <br>
+
+        <!-- for shipping address in no case -->
+        <label for="shippingAddressNo" id="shippingAddressNoLabel" style="display: none;">Customer Shipping Address:
+        <input type="text" id="shipaddress" name="shipaddress">
+        </label>
+         <br>
+         <!-- internet Address -->
+        <label for="InternetAddress">Is your internet address the same as the customer address?</label>
+        <input type="radio" name="InternetAddress" id="InternetAddressYes" onchange="internetAdress()">Yes
+        <input type="radio" name="InternetAddress" id="InternetAddressNo" onchange="internetAdress()">No
+        <!-- in no case -->
+        <label for="InternetAddressNo" id="InternetAddresslabel" style="display: none;" >Customer Internet Address: 
+            <input type="text" name="" id="InternetAddress">
+        </label>
+        <br>
+        <label for="RogerAccountNumber">Rogers Internet Account Number
+        <input type="text" name="RogerAccountNumber" id="RogerAccountNumber">
+    </label><br>
+    </section>
+    <!-- 3  -->
+    <h2>Numbers to be Ported</h2>
+    <button type="button" onclick="addLine()">Add Line</button>
+    <div id="linesContainer">
+        <!-- Existing line (you can keep this if needed) -->
+        <div class="line">
+            <label for="newLine">New Line
+                <input type="checkbox" class="newLine" name="newLine">
+            </label>
+            <label for="userName">User Name
+                <input type="text" name="userName" class="userName">
+            </label>
+            <label for="userPhoneNumber">Phone No
+                <input type="tel" name="userPhoneNumber" class="userPhoneNumber">
+            </label>
+            <label for="providerName">Provider Name
+                <input type="text" name="providerName" class="providerName">
+            </label>
+            <label for="RMAccountNumber">
+                <input type="text" name="RMAccountNumber" class="RMAccountNumber">
+            </label>
+            <input type="radio" name="package" class="internet">75 GB
+            <input type="radio" name="package" class="internet">150 GB
+            <button type="button" onclick="deleteLine(this)">Delete</button>
+        </div>
+    </div>    
+    <!-- credit info -->
+    <section>
+        <h2>Credit Information</h2>
+        <label for="identity">Choose and option</label><br>
+        <input type="radio" name="identity" id="identitySIN" onchange="sin()"> Provide Driver's License and SIN
+        <br>
+        <input type="radio" name="identity" id="identityBankInfo" onchange="sin()">  Provide Driver's License and Bank Info
+        <br>
+        <input type="radio" name="identity" id="identity" onchange="sin()">  Provide Photo ID, SIN, and Bank Info
+        <br><br><br>
+    </section>
+    <!-- hidden -->
+    <section id="SINSection" style="display: none;">
+    <label>Drivers License Photo: (add Image)</label>
+    <input type="file" id="image " name="image"><br>
+    <label for="licenseNumber">Driver License Number:</label>
+    <input type="text" id="licenseNumber" name="licenseNumber"><br>
+    <label for="expirtyDate">Expiry Date</label>
+    <input type="date" name="expirtyDate" id="expirtyDate"><br>
+    <label for="province">Choose a province/territory:</label>
+    <select name="province" id="province">
+        <option value="">please Select</option>
+        <option value="Albetra">Albetra</option>
+        <option value="British Columbia">British Columbia</option>
+        <option value="Albetra">Manitoba</option>
+        <option value="Albetra">Albetra</option>
+        <option value="Albetra">Albetra</option>
+        <option value="Albetra">Albetra</option>
+        <option value="Albetra">Albetra</option>
+        <option value="Albetra">Albetra</option>
+    </select><br>
+</section>
+<!-- SIN section -->
+<section id="sectionSin" style="display: none;">
+<label for="SIN" >Customer SIN:
+    <input type="text" name="SIN" id="SIN">
+</label>
+</section>
+<!-- hidden section for bank info -->
+<section id="Bankinfo" style="display: none;">
+    <label for="">Bank Institution Number (3 digits):
+        <input type="text" name="InstiNumber" id="InstiNumber">
+    </label><br>
+    <label for="">Bank Transit Number (5 digits):
+        <input type="text" name="TransitNumber" id="TransitNumber">
+    </label><br>
+    <label for="">Bank Account Number (7-12 digits):
+        <input type="text" name="AccountNumber" id="AccountNumber">
+    </label>
+</section>
+<!-- hidden section for identity 3  -->
+<section id="PhotoIdSection" style="display: none;">
+    <label for="">Photo ID:
+        <input type="file" name="photoid" id="photoid">
+    </label>
+</section>
+    <!-- section notes -->
+    <label for="notes">Notes</label><br><br>
+        <textarea name="notes" id="notes" cols="30" rows="5"></textarea>
+    <button type="submit">Submit</button>
+    </form>
+</div>
+</div>
+</body>
+<script src="RogerMobility.js"></script>
+</html>

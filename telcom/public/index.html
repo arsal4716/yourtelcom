@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Customer Information Form</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div class="heading">
+      <h2>Order Forms</h2>
+      <h2><a href="/clientPortal">Go to Sales Portal</a></h2>
+    </div>
+    <!-- order Information -->
+    <section class="sec1">
+      <div class="orderInform">
+        <fieldset>
+          <legend>Order Information</legend>
+          <select name="choseOrder" id="choseOrder" onchange="showOrderField()">
+            <option value="">Choose Order type</option>
+            <option value="Bell">Bell</option>
+            <option value="Rogers">Rogers</option>
+            <option value="RM">Rogers Mobility</option>
+          </select>
+          <!-- Choose order type -->
+          <div class="order-Type" id="orderType" style="display: none">
+            <label for="orderTypeSelect">Select Order Type:</label>
+            <select
+              name="orderTypeSelect"
+              id="orderTypeSelect"
+              onchange="customerField()"
+            >
+              <option value="">Select Order Type</option>
+              <option value="RId">Regular With ID</option>
+              <option value="RnoId">Regular Without ID</option>
+              <option value="CId">Cheaper With ID</option>
+              <option value="CnoId">Cheaper Without ID</option>
+            </select>
+          </div>
+          <!-- Customer type -->
+          <div class="customerType" id="customerType" style="display: none">
+            <label for="customerTypeSelect">Select Customer Type:</label>
+            <select
+              name="customerTypeSelect"
+              id="customerTypeSelect"
+              onchange="ExistingCustomer()">
+              <option value="">Select Customer Type</option>
+              <option value="New"> New </option>
+              <option value="Existing">Existing</option>
+            </select>
+          </div>
+        </fieldset>
+      </div>
+      <!--Esxisting Customer Field  -->
+      <div class="ExistingCustomer" id="ExistingCustomer" style="display: none">
+        <fieldset>
+          <legend>Previous Customer Information</legend>
+          <div class="form-group">
+            <label for="CustomerName">Customer Name</label>
+            <input type="text" id="CustomerName" />
+          </div>
+          <div class="form-group">
+            <label for="ExistCustPhone">Customer Phone No</label>
+            <input type="tel" id="ExistCustPhone" />
+          </div>
+          <div class="form-group">
+            <label for="ExistingEmail">Customer Email</label>
+            <input type="email" id="ExistingEmail" />
+          </div>
+          <div class="form-group">
+            <label for="interactionId">Cancellation/Interaction ID</label>
+            <input type="number" id="interactionId" />
+          </div>
+        </fieldset>
+      </div>
+          
+          <!--form fetching  -->
+          <div id="formContainer">
+            <script src="RogersMobility.html" type="text/html"></script>
+            <script src="RogerMobility.js" defer></script>
+          </div> 
+      <!-- Credit info -->
+      <div class="creditInfo" id="creditInfo" style="display: none">
+        <fieldset>
+          <legend>Credit Information</legend>
+          <label for="birthDate">Date of Birth:</label>
+          <input type="date" name="birthDate" id="birthDate" />
+          <select name="choseId" id="choseId" onchange="showSelectId()">
+            <option value="">Select Id:</option>
+            <option value="Passport">Passport:</option>
+            <option value="Driving License">Driving License:</option>
+          </select>
+          <!-- passport section -->
+          <div id="passportSection" style="display: none">
+            <label for="passportNumber">Passport No:</label>
+            <input
+              type="text"
+              name="passportNumber"
+              id="passportNumber"
+            />
+          </div>
+          <!-- driving section -->
+          <div id="drivingSection" style="display: none">
+            <label for="licenseNumber">License Number:</label>
+            <input
+              type="text"
+              name="drivingLicenseNumber"
+              id="drivingLicenseNumber"
+            /><br />
+          </div>
+          <label for="expiryDate" id="expiryDateLabel">Expiry Date:</label>
+          <input type="date" name="expiryDate" id="expiryDate" />
+        </fieldset>
+      </div>
+    </div>
+      </section><hr><br>
+    <form action="/submit" method="post" class="main-form" id="form" style="display: none;">
+      <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+      
+      <!-- Customer info -->
+<div class="main">
+  <div class="customerInfo">
+    <div class="column">
+      <label for="name">Customer Name:</label>
+      <input type="text" placeholder="Enter your name" id="name" name="name" required />
+    </div>
+    <div class="column">
+      <label for="address">Customer Address:</label>
+      <input type="text" placeholder="Enter your address" id="address" name="address" required />
+    </div>
+    <div class="column">
+      <label for="email">Customer Email:</label>
+      <input type="email" placeholder="Enter your email" id="email" name="email" required />
+    </div>
+  </div>
+</div>
+<!-- Port Phone Number Section -->
+<div class="mainport">
+  <div class="portPhoneNumber">
+    <label for="CustomerPort">Do Customer Want to port the same phone number?</label>
+    <label><input type="radio" name="portPhone" id="phoneYes" onclick="showYesField()" />Yes</label>
+    <label><input type="radio" name="portPhone" id="phoneNo" onclick="showNoField()" />No</label>
+    <!-- Yes case -->
+    <div id="PortYesSection" style="display: none;" class="field-row">
+      <div class="field">
+        <label for="portingNumber">Porting Number:</label>
+        <input type="tel" name="portingNumber" id="portingNumber" value="" />
+      </div>
+      <div class="field">
+        <label for="Provider">Provider Name:</label>
+        <input type="text" name="ProviderName" id="ProviderName" />
+      </div>
+      <div class="field">
+        <label for="AccountNumber">Account Number:</label>
+        <input type="text" name="AccountNumber" id="AccountNumber" value="" />
+      </div>
+      <div class="field">
+        <label for="portPhoneNumber">Cell Number</label>
+        <input type="tel" name="portPhoneNumber" id="portPhoneNumber" value="" />
+      </div>
+    </div>
+
+    <!-- No case -->
+    <div id="mainNoSection" style="display: none" class="field-row">
+      <div class="field">
+        <label for="mainNumber">Main Number:</label>
+        <input type="tel" id="mainNumber" name="mainNumber" />
+      </div>
+      <div class="field">
+        <label for="mainCell">Cell Number</label>
+        <input type="tel" id="mainCell" name="mainCell" />
+      </div>
+    </div>
+  </div>
+</div>
+        <!-- package information -->
+        <h3>Package Information</h3>
+        <div class="packageInfo">
+          <!-- Home packge for rogers -->
+          <div class="HomePhone">
+          <label
+            ><input
+              type="radio"
+              name="Homepackage"
+              id="Homepackage"
+              value="Home Package"
+              onclick="homeSection()"
+            />Home Phone</label>
+            <div id="homeSection" style="display: none">
+              <label for="line">Select Line:</label>
+              <div id="homeSectionRoger">
+                <select name="line" id="line" value="">
+                  <option value="Rogers Phoneline">Rogers Phoneline</option>
+                  <option value="Local Phoneline and 2 features ">
+                    Local Phoneline and 2 features
+                  </option>
+                  <option
+                    value="Canada Wide Callings  With all Calling features"
+                  >
+                    Canada Wide Callings With all Calling features
+                  </option>
+                  <option
+                    value="Us and Canada Wide Callings  With all Calling features"
+                  >
+                    Us and Canada Wide Callings With all Calling features
+                  </option></select
+                ><br />
+              </div>
+              <!--Home package for bell  -->
+              <div id="homeSectionbell">
+                <select name="" id="line">
+                  <option value="Us and canada wide callings">
+                    Us and canada wide callings
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <!-- internet packege for rogers-->
+          <div class="internet">
+          <label
+            ><input
+              type="radio"
+              name="InternetPackage"
+              id="InternetPackage"
+              value="Internet"
+              onclick="intrnetSection()"
+            />Internet</label><br />
+          <div id="internetSection" style="display: none">
+            <label for="">select Internet speed</label>
+            <div id="internetRogers">
+              <select value="" id="speed">
+                <option name="" id="speed" value="Rogers Ignite Internet ">
+                  Rogers Ignite Internet
+                </option>
+                <option value="150MBPs">150MBPs</option>
+                <option value="500MBPs">500MBPs</option>
+                <option value="1.5GBPs">1.5GBPs</option>
+              </select>
+            </div>
+            <!-- internet for bell -->
+            <div id="internetBell">
+              <select name="" id="speed">
+                <option value="FIBE 50">FIBE 50</option>
+                <option value="FIBE 50">FIBE 100</option>
+                <option value="FIBE 50">FIBE 150</option>
+                <option value="FIBE 50">FIBE 500</option>
+                <option value="FIBE 50">FIBE 1.5 GB</option>
+                <option value="FIBE 50">FIBE 3.0 GB</option>
+                <option value="FIBE 50">FIBE 8.0 GB</option>
+              </select>
+            </div>
+          </div>
+       </div>
+       <!-- Tv secction -->
+       <div class="tv">
+        <label
+        ><input
+          type="radio"
+          name="TvPackage"
+          id="TvPackage"
+          value="Tv Package"
+          onclick="tvSection()"
+        />TV</label
+      >
+      <div id="tvSection" style="display: none">
+          <label for="TvPackage">Select TV Package:</label>
+          <!-- tv section for rogers -->
+          <div id="TvRogers">
+        <select name="TvPackage" id="TvPackageinfo">
+          <option value="Rogers Ignite TV ">Rogers Ignite TV</option>
+          <option value="Starter ">Starter</option>
+          <option value="Ignite Flex 5 ">Ignite Flex 5</option>
+          <option value="Ignite Flex 10 ">Ignite Flex 10</option>
+          <option value="Popular">Popular</option>
+        </select>
+      </div>
+      
+      <!-- tv bell -->
+      <div class="packageInfo"></div>
+      <div id="Tvbell">
+          <select name="" id="TvPackageinfo">
+              <option value="Fibe TV">Fibe TV</option>
+              <option value="Starter TV">Starter TV</option>
+              <option value="Starter TV + ALA carte">Starter TV + ALA carte</option>
+              <option value="good  TV package">good  TV package</option>
+              <option value="Better  TV package">Better  TV package</option>
+          </select>
+      </div>
+      <!-- Extra box -->
+      
+        <label
+        ><input
+          type="radio"
+          name="ExtraPackage"
+          id="ExtraPackage"
+          onclick="extraSection()"
+        />Extra Box</label
+      >
+      </div>
+    </div>  
+         <br />
+      <div id="ExtraSection" style="display: none">
+        <label for="boxesQuality">Extra Boxes Quality:</label>
+        <input type="text" name="boxesQuality" id="boxesQuality" /><br />
+      </div>
+
+    </div>
+        <div class="offerContainer">
+  <!-- Credit offered -->
+  <div class="offerOption">
+    <label>
+      <input type="radio" name="packageType" id="creditOffer" onclick="creditSection()" />
+      Credit Offered
+    </label>
+    <div id="creditSection" class="offerDetails" style="display: none">
+      <label for="creditOffer">Total Offered:</label>
+      <input type="number" name="creditOffer" id="creditOfferInfo" />
+    </div>
+  </div>
+
+  <!-- Extra Channels -->
+  <div class="offerOption">
+    <label>
+      <input type="radio" name="ExtraChennals" id="ExtraChennals" onclick="extraChennals()" />
+      Extra Channels
+    </label>
+    <div id="extraChennalSection" class="offerDetails" style="display: none">
+      <label for="chenalsDetails">Extra Channels Details:</label>
+      <input type="text" name="chenalsDetails" id="chenalsDetails" />
+    </div>
+  </div>
+
+  <!-- Total price offered -->
+  <div class="offerOption">
+    <label for="fullPrice">Total Price Offered:</label>
+    <input type="number" id="fullPrice" name="fullPrice" />
+  </div>
+</div>
+<div class="dateAndNoteContainer">
+  <!-- Note on Order -->
+  <div class="noteOption">
+    <label for="noteOrder">Note on Order:</label>
+    <textarea name="noteOrder" id="noteOrder" cols="20" rows="3"></textarea>
+  </div>
+  <!-- Preferred Installation Date -->
+  <div class="dateOption">
+    <label for="preferedinsdate">Prefered Installtion Date</label>
+    <input type="datetime-local" name="prefereddate" id="preferedinsdate">
+  </div>
+  <div class="agent-Name">
+  <!-- agent Name -->
+  <label for="agentName">Agent Name:</label>
+  <input type="text"  name="agentName" id="agentName">
+</div>
+      </div>
+      <button type="submit" class="submit-button">Submit</button>
+    </form>
+    <div class="overlay" id="loader-container">
+      <div id="loader" style="display: none">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="feather feather-loader"
+      >
+        <line x1="12" y1="2" x2="12" y2="6"></line>
+        <line x1="12" y1="18" x2="12" y2="22"></line>
+        <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line>
+        <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line>
+        <line x1="2" y1="12" x2="6" y2="12"></line>
+        <line x1="18" y1="12" x2="22" y2="12"></line>
+        <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
+        <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
+      </svg>
+    </div>
+  </div>
+  </body>
+  <script src="index.js"></script>
+</html>
