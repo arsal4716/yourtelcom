@@ -99,7 +99,6 @@ function sin() {
     }
 }
 const formElement  = document.querySelector("form").addEventListener("submit", async function (event) {
-    console.log(formElement )
     event.preventDefault();
     const RogersMobilityData = {
         ReprId: document.getElementById("reId").value,
