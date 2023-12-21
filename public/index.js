@@ -214,21 +214,29 @@ document
       // home section if checked
       Homepackage: document.getElementById("Homepackage").checked 
       ? "yes" : "",
-      line: document.getElementById("line").value,
-      // internet section if checked
-      InternetPackage: document.getElementById("InternetPackage").checked
+      line: document.getElementById("Homepackage").checked
+      ? document.getElementById("line").value
+      : "",
+        // internet section if checked
+        InternetPackage: document.getElementById("InternetPackage").checked
         ? "yes"
         : "",
-      speed: document.getElementById("speed").value,
-      // tv section if yes
-      TvPackage: document.getElementById("TvPackage").checked ? "yes" : "",
-      TvPackageinfo: document.getElementById("TvPackageinfo").value,
-      // Extra box
-      ExtraPackage: document.getElementById("ExtraPackage").checked
+        speed: document.getElementById("InternetPackage").checked
+        ? document.getElementById("speed").value
+        : "",
+          // tv section if yes
+          TvPackage: document.getElementById("TvPackage").checked ? "yes" : "",
+          TvPackageinfo: document.getElementById("TvPackage").checked
+            ? document.getElementById("TvPackageinfo").value
+            : "",
+        // Extra box
+        ExtraPackage: document.getElementById("ExtraPackage").checked
         ? "yes"
         : "",
-      boxesQuality: document.getElementById("boxesQuality").value,
-      // creditOffer
+      boxesQuality: document.getElementById("ExtraPackage").checked
+        ? document.getElementById("boxesQuality").value
+        : "",
+          // creditOffer
       creditOffer: document.getElementById("creditOffer").checked ? "yes" : "",
       creditOfferInfo: document.getElementById("creditOfferInfo").value,
       // extra chennal details
@@ -251,7 +259,7 @@ document
       document.querySelector('.overlay').style.display = 'none';
     }, 3000);
     // Send form data to the server
-    const response = await fetch("https://telcom-phi.vercel.app/submit", {
+    const response = await fetch("/submit", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

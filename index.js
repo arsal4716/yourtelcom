@@ -24,14 +24,14 @@ app.use(
     saveUninitialized: true,
   })
 );
-const corsOptions = {
-  origin: '*',
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true,
-  allowedHeaders: 'Content-Type,Authorization',
-};
+// const corsOptions = {
+//   origin: '*',
+//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//   credentials: true,
+//   allowedHeaders: 'Content-Type,Authorization',
+// };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 
 const isAuthenticated = (req, res, next) => {
@@ -62,7 +62,7 @@ const userAuthenticated  = (req, res, next) => {
   }
 };
 
-app.get("https://telcom-phi.vercel.app/userLogin", async(req, res) =>{
+app.get("/userLogin", async(req, res) =>{
   res.render('userLogin')
 })
 app.post('/userLogin', async (req, res) => {
@@ -82,10 +82,10 @@ app.post('/userLogin', async (req, res) => {
     return res.status(500).send('internal server error');
   }
 });
-app.get("https://telcom-phi.vercel.app/", userAuthenticated , (req, res) => {
+app.get("/", userAuthenticated , (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 });
-app.post("https://telcom-phi.vercel.app/submit", async (req, res) => {
+app.post("/submit", async (req, res) => {
   const formData = req.body;
   const RogersMobilityData = req.body;
   
@@ -293,7 +293,7 @@ await sheets.spreadsheets.values.append({
   }
 });
 // client portal
-app.get('https://telcom-phi.vercel.app//clientPortal', userAuthenticated, async(req, res) =>{
+app.get('/clientPortal', userAuthenticated, async(req, res) =>{
   const users = await User.find();
   res.render('clientPortal.ejs', {users});
 });
